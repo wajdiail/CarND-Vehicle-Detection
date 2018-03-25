@@ -112,9 +112,11 @@ Cells per step: `2`
 ##### The visualization of search window:
 
 |![alt text][image15]|![alt text][image16]|
+|:-:|:-:|
 |**Scale=1**|**Scale =1.5**|
 
 |![alt text][image17]|![alt text][image18]|
+|:-:|:-:|
 |**Scale=1**|**Scale =1.5**|
 
 
