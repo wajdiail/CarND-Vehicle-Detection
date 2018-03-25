@@ -41,7 +41,7 @@ The code for this step is contained in the first code cell of the IPython notebo
 
 I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
 
-![alt text][image1]  ![alt text][image2] 
+|![alt text][image1]|![alt text][image2]|
 |:-:|:-:|
 |**Car**|**Non Car**|
 
@@ -51,20 +51,20 @@ Below are some examples of using various HOG parameters
 
 HOG parameters of `orientations=4`, `pixels_per_cell=4` and `cells_per_block=4`:
 
-![alt text][image3]  ![alt text][image4]
+|![alt text][image3]|![alt text][image4]|
 |:-:|:-:|
 |**Car**|**Non Car**|
 
 HOG parameters of `orientations=9`, `pixels_per_cell=4` and `cells_per_block=4`:
 
 
-![alt text][image5]  ![alt text][image6] 
+|![alt text][image5]|![alt text][image6]|
 |:-:|:-:|
 |**Car**|**Non Car**|
 
 HOG parameters of `orientations=9`, `pixels_per_cell=6` and `cells_per_block=8`:
 
-![alt text][image7]  ![alt text][image8] 
+|![alt text][image7]|![alt text][image8]|
 |:-:|:-:|
 |**Car**|**Non Car**|
 
@@ -74,13 +74,13 @@ Different Color Spaces:
 
 Color Space: `HSV`
 
-![alt text][image11]  ![alt text][image12] 
+|![alt text][image11]|![alt text][image12]|
 |:-:|:-:|
 |**Car**|**Non Car**|
 
 Color Space: `LUV`
 
-![alt text][image13] ![alt text][image14] 
+|![alt text][image13]|![alt text][image14]|
 |:-:|:-:|
 |**Car**|**Non Car**|
 
@@ -95,7 +95,7 @@ HOG parameters of `orientations=9`, `pixels_per_cell=8` and `cells_per_block=8`:
 
 | ![alt text][image9] | ![alt text][image10] |
 |:-:|:-:|
-|**Vehicle**|**Nonvehicle**|
+|**Car**|**Non Car**|
 
 
 ####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
