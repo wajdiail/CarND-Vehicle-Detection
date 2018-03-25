@@ -24,18 +24,18 @@ The goals / steps of this project are the following:
 [image12]: ./images/org_img_noncar_hsv.png
 [image13]: ./images/org_img_car_luv.png
 [image14]: ./images/org_img_noncar_luv.png
-[video1]: ./project_video.mp4 
+[image15]: ./images/search_area_1.png
+[image16]: ./images/search_area_1.5.png
+[image17]: ./images/sliding_window_1.png
+[image18]: ./images/sliding_window_1.5.png
+[video1]: ./project_output.mp4 
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
-###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
+### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
+### Histogram of Oriented Gradients (HOG)
 
-You're reading it!
-
-###Histogram of Oriented Gradients (HOG)
-
-####1. Explain how (and identify where in your code) you extracted HOG features from the training images.
+#### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
 The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
 
@@ -57,7 +57,6 @@ HOG parameters of `orientations=4`, `pixels_per_cell=4` and `cells_per_block=4`:
 
 HOG parameters of `orientations=9`, `pixels_per_cell=4` and `cells_per_block=4`:
 
-
 |![alt text][image5]|![alt text][image6]|
 |:-:|:-:|
 |**Car**|**Non Car**|
@@ -67,8 +66,6 @@ HOG parameters of `orientations=9`, `pixels_per_cell=6` and `cells_per_block=8`:
 |![alt text][image7]|![alt text][image8]|
 |:-:|:-:|
 |**Car**|**Non Car**|
-
-
 
 Different Color Spaces: 
 
@@ -86,44 +83,55 @@ Color Space: `LUV`
 
 I noticed that HSV, HLS converted images very similar and LUV, YCrCb, YUV were similar. I felt LUV is better and used it as my color space in this project
 
-####2. Explain how you settled on your final choice of HOG parameters.
+#### 2. Explain how you settled on your final choice of HOG parameters.
 
-I tried various combinations of parameters on color spaces and HOG parameters but the LUV and the below parameters yielded me a better view of the car compared to others.
+I tried various combinations of parameters on color spaces and HOG parameters but the LUV and the below parameters yielded me a better view of the car compared to others also the training accuracy was slightly better.
 
 HOG parameters of `orientations=9`, `pixels_per_cell=8` and `cells_per_block=8`:
-
 
 | ![alt text][image9] | ![alt text][image10] |
 |:-:|:-:|
 |**Car**|**Non Car**|
 
 
-####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
+#### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
-I trained a linear SVM using
+After extracting the HOG features. I also extracted the historgram of color features and combined together to form the final features vector.
 
-###Sliding Window Search
+I then trained a linear SVM using the above extracted final feature vector and got an accuracy of 98.4% 
 
-####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
+### Sliding Window Search
+
+#### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
+
+The sliding window search was implemented on the `orginal scale of 1` and on `scale of 1.5`. Instead of overlap, I defined how many cells to step. The details are below
+
+Window to search: `ystart=350, ystop=500, xstart=750,xstop=1280`
+Cells per step: `2`
+
+##### The visualization of search window:
+
+|![alt text][image15]|![alt text][image16]|
+|**Scale=1**|**Scale =1.5**|
+
+|![alt text][image17]|![alt text][image18]|
+|**Scale=1**|**Scale =1.5**|
 
 
+#### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
-![alt text][image3]
-
-####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
-
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
+Ultimately I searched on two scales using LUV 3-channel HOG features and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
 
 ![alt text][image4]
 ---
 
 ### Video Implementation
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a [link to my video result](./project_video.mp4)
+#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
+Here's a [link to my video result](./project_output.mp4)
 
 
-####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
+#### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
 I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
 
@@ -143,9 +151,9 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 ---
 
-###Discussion
+### Discussion
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 
 
