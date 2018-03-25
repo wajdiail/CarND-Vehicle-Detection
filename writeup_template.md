@@ -1,8 +1,3 @@
-##Writeup Template
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
-
----
-
 **Vehicle Detection Project**
 
 The goals / steps of this project are the following:
@@ -15,20 +10,24 @@ The goals / steps of this project are the following:
 * Estimate a bounding box for vehicles detected.
 
 [//]: # (Image References)
-[image1]: ./examples/car_not_car.png
-[image2]: ./examples/HOG_example.jpg
-[image3]: ./examples/sliding_windows.jpg
-[image4]: ./examples/sliding_window.jpg
-[image5]: ./examples/bboxes_and_heat.png
-[image6]: ./examples/labels_map.png
-[image7]: ./examples/output_bboxes.png
-[video1]: ./project_video.mp4
+[image1]: ./images/org_img_car.png.png 
+[image2]: ./images/org_img_noncar.png
+[image3]: ./images/hog_feature_car_4_4_4.png
+[image4]: ./images/hog_feature_noncar_4_4_4.png
+[image5]: ./images/hog_feature_car_4_4_9.png
+[image6]: ./images/hog_feature_noncar_4_4_9.png
+[image7]: ./images/hog_feature_car_6_8_9.png
+[image8]: ./images/hog_feature_noncar_6_8_9.png 
+[image9]: ./images/hog_feature_car_luv_final.png 
+[image10]: ./images/hog_feature_noncar_luv_final.png 
+[image11]: ./images/org_img_car_hsv.png
+[image12]: ./images/org_img_noncar_hsv.png
+[image13]: ./images/org_img_car_luv.png
+[image14]: ./images/org_img_noncar_luv.png
+[video1]: ./project_video.mp4 
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
 ###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
-
----
-###Writeup / README
 
 ####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
 
@@ -42,28 +41,62 @@ The code for this step is contained in the first code cell of the IPython notebo
 
 I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
 
-![alt text][image1]
+|![alt text][image1] | ![alt text][image2] |
 
 I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
 
-Here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
+Below are some examples of using various HOG parameters
+
+HOG parameters of `orientations=4`, `pixels_per_cell=4` and `cells_per_block=4`:
+
+|![alt text][image3] | ![alt text][image4] |
+
+HOG parameters of `orientations=9`, `pixels_per_cell=4` and `cells_per_block=4`:
 
 
-![alt text][image2]
+|![alt text][image5] | ![alt text][image6] |
+
+HOG parameters of `orientations=9`, `pixels_per_cell=6` and `cells_per_block=8`:
+
+| ![alt text][image7] | ![alt text][image8] |
+|:-:|:-:|
+|**Vehicle**||**Nonvehicle**|
+
+
+
+Different Color Spaces: 
+
+Color Space: `HSV`
+
+| ![alt text][image11] | ![alt text][image12] |
+
+Color Space: `LUV`
+
+| ![alt text][image13] | ![alt text][image14] |
+
+I noticed that HSV, HLS converted images very similar and LUV, YCrCb, YUV were similar. I felt LUV is better and used it as my color space in this project
 
 ####2. Explain how you settled on your final choice of HOG parameters.
 
-I tried various combinations of parameters and...
+I tried various combinations of parameters on color spaces and HOG parameters but the LUV and the below parameters yielded me a better view of the car compared to others.
+
+HOG parameters of `orientations=9`, `pixels_per_cell=8` and `cells_per_block=8`:
+
+
+| ![alt text][image9] | ![alt text][image10] |
+|:-:|:-:|
+|**Vehicle**||**Nonvehicle**|
+
 
 ####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
-I trained a linear SVM using...
+I trained a linear SVM using
 
 ###Sliding Window Search
 
 ####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
-I decided to search random window positions at random scales all over the image and came up with this (ok just kidding I didn't actually ;):
+
 
 ![alt text][image3]
 
@@ -104,5 +137,5 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+
 
