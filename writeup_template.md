@@ -10,7 +10,7 @@ The goals / steps of this project are the following:
 * Estimate a bounding box for vehicles detected.
 
 [//]: # (Image References)
-[image1]: ./images/org_img_car.png.png 
+[image1]: ./images/org_img_car.png
 [image2]: ./images/org_img_noncar.png
 [image3]: ./images/hog_feature_car_4_4_4.png
 [image4]: ./images/hog_feature_noncar_4_4_4.png
@@ -41,7 +41,9 @@ The code for this step is contained in the first code cell of the IPython notebo
 
 I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
 
-|![alt text][image1] | ![alt text][image2] |
+![alt text][image1]  ![alt text][image2] 
+|:-:|:-:|
+|**Car**|**Non Car**|
 
 I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
 
@@ -49,18 +51,22 @@ Below are some examples of using various HOG parameters
 
 HOG parameters of `orientations=4`, `pixels_per_cell=4` and `cells_per_block=4`:
 
-|![alt text][image3] | ![alt text][image4] |
+![alt text][image3]  ![alt text][image4]
+|:-:|:-:|
+|**Car**|**Non Car**|
 
 HOG parameters of `orientations=9`, `pixels_per_cell=4` and `cells_per_block=4`:
 
 
-|![alt text][image5] | ![alt text][image6] |
+![alt text][image5]  ![alt text][image6] 
+|:-:|:-:|
+|**Car**|**Non Car**|
 
 HOG parameters of `orientations=9`, `pixels_per_cell=6` and `cells_per_block=8`:
 
-| ![alt text][image7] | ![alt text][image8] |
+![alt text][image7]  ![alt text][image8] 
 |:-:|:-:|
-|**Vehicle**||**Nonvehicle**|
+|**Car**|**Non Car**|
 
 
 
@@ -68,11 +74,15 @@ Different Color Spaces:
 
 Color Space: `HSV`
 
-| ![alt text][image11] | ![alt text][image12] |
+![alt text][image11]  ![alt text][image12] 
+|:-:|:-:|
+|**Car**|**Non Car**|
 
 Color Space: `LUV`
 
-| ![alt text][image13] | ![alt text][image14] |
+![alt text][image13] ![alt text][image14] 
+|:-:|:-:|
+|**Car**|**Non Car**|
 
 I noticed that HSV, HLS converted images very similar and LUV, YCrCb, YUV were similar. I felt LUV is better and used it as my color space in this project
 
@@ -85,7 +95,7 @@ HOG parameters of `orientations=9`, `pixels_per_cell=8` and `cells_per_block=8`:
 
 | ![alt text][image9] | ![alt text][image10] |
 |:-:|:-:|
-|**Vehicle**||**Nonvehicle**|
+|**Vehicle**|**Nonvehicle**|
 
 
 ####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
