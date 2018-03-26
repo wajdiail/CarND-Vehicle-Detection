@@ -26,8 +26,29 @@ The goals / steps of this project are the following:
 [image14]: ./images/org_img_noncar_luv.png
 [image15]: ./images/search_area_1.png
 [image16]: ./images/search_area_1.5.png
-[image17]: ./images/sliding_window_1.png
-[image18]: ./images/sliding_window_1.5.png
+[image17]: ./images/final_test_1.png
+[image18]: ./images/heat_test_1.png
+[image19]: ./images/final_test_2.png
+[image20]: ./images/heat_test_2.png
+[image21]: ./images/final_test_3.png
+[image22]: ./images/heat_test_3.png
+[image23]: ./images/final_test_4.png
+[image24]: ./images/heat_test_4.png
+[image25]: ./images/final_test_5.png
+[image26]: ./images/heat_test_5.png
+[image27]: ./images/final_test_6.png
+[image28]: ./test_images/test_1.png
+[image29]: ./test_images/test_2.png
+[image30]: ./test_images/test_3.png
+[image31]: ./test_images/test_4.png
+[image32]: ./test_images/test_5.png
+[image33]: ./test_images/test_6.png
+[image34]: ./images/after_fp_filter1.png
+[image35]: ./images/after_fp_filter2.png
+[image36]: ./images/after_fp_filter3.png
+[image37]: ./images/after_fp_filter4.png
+[image38]: ./images/after_fp_filter5.png
+[image39]: ./images/after_fp_filter6.png
 [video1]: ./project_output.mp4 
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
@@ -37,7 +58,7 @@ The goals / steps of this project are the following:
 
 #### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
-The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
+The code for this step is contained in the third code cell of the IPython notebook.
 
 I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
 
@@ -98,7 +119,7 @@ HOG parameters of `orientations=9`, `pixels_per_cell=8` and `cells_per_block=8`:
 
 After extracting the HOG features. I also extracted the historgram of color features and combined together to form the final features vector.
 
-I then trained a linear SVM using the above extracted final feature vector and got an accuracy of 98.4% 
+I then trained a linear SVM using the above extracted final feature vector and got an accuracy of 98.4% . The code is contained in the 8th cell of the ipython notebook
 
 ### Sliding Window Search
 
@@ -109,6 +130,7 @@ The sliding window search was implemented on the `orginal scale of 1` and on `sc
 Window to search: `ystart=350, ystop=500, xstart=750,xstop=1280`
 Cells per step: `2`
 
+The code is contained in the 9th cell of the ipython notebook in the function name `find_cars`
 ##### The visualization of search window:
 
 |![alt text][image15]|![alt text][image16]|
@@ -124,7 +146,7 @@ Cells per step: `2`
 
 Ultimately I searched on two scales using LUV 3-channel HOG features and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
 
-![alt text][image4]
+![alt text][image17]
 ---
 
 ### Video Implementation
@@ -135,27 +157,54 @@ Here's a [link to my video result](./project_output.mp4)
 
 #### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
+1. First I scoped the search window very specific to road and car moving path which elimated fasle positives generating from trees, skies and other side of traffic. Then I created a heapmap and thresholded to remove the weeker boxes. The final boxex optained from the label were sent to an merge algorithm which basically merges the 30% overlapping boxes.
 
-Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
+The code cells : 10,11,12,13,14
+functions: `remove_false_positive` `MergeBoxes`
 
 ### Here are six frames and their corresponding heatmaps:
 
-![alt text][image5]
+![alt text][image28] ![alt text][image18]
+![alt text][image29] ![alt text][image20]
+![alt text][image30] ![alt text][image22]
+![alt text][image31] ![alt text][image24]
+![alt text][image32] ![alt text][image26]
+![alt text][image33] ![alt text][image28]
 
-### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
-![alt text][image6]
+### After applying false positive filter
+
+|**Before**|**After**|
+|:-:|:-:|
+|![alt text][image18]| ![alt text][image34]|
+|![alt text][image20]| ![alt text][image35]|
+|![alt text][image22]| ![alt text][image36]|
+|![alt text][image24]| ![alt text][image37]|
+|![alt text][image26]| ![alt text][image38]|
+|![alt text][image28]| ![alt text][image39]|
+
+
 
 ### Here the resulting bounding boxes are drawn onto the last frame in the series:
-![alt text][image7]
-
-
+![alt text][image17]
+![alt text][image19]
+![alt text][image21]
+![alt text][image23]
+![alt text][image25]
+![alt text][image27]
 
 ---
 
 ### Discussion
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+
+* The pipeline will fail if there are cars in the lane of the driving car.Iniitial I applied the sliding window search on half of the image horizontally which have covered the cars on any lane. As the pipeline was performing slow due to limited computed power. I focussed the solution specific to this project and hence further limited the search area. But it can be easily changed to detect cars other on areas of the road.
+
+* The accuray of the classifer can be further increased by using deep learning ConvNets. Again its a matter of data and compute power.
+
+* More robust algorithm of elimating false positives and drawing tight bounding box can be used.
+
+
 
 
 
