@@ -9,6 +9,8 @@ The goals / steps of this project are the following:
 * Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
 * Estimate a bounding box for vehicles detected.
 
+The final code is contained [here](./Final.ipynb)
+
 [//]: # (Image References)
 [image1]: ./images/org_img_car.png
 [image2]: ./images/org_img_noncar.png
@@ -49,6 +51,8 @@ The goals / steps of this project are the following:
 [image37]: ./images/after_fp_filter4.png
 [image38]: ./images/after_fp_filter5.png
 [image39]: ./images/after_fp_filter6.png
+[image40]: ./images/heat_test_5.png
+
 [video1]: ./project_output.mp4 
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
@@ -180,7 +184,7 @@ functions: `remove_false_positive` `MergeBoxes`
 |![alt text][image22]| ![alt text][image36]|
 |![alt text][image24]| ![alt text][image37]|
 |![alt text][image26]| ![alt text][image38]|
-|![alt text][image28]| ![alt text][image39]|
+|![alt text][image40]| ![alt text][image39]|
 
 
 
